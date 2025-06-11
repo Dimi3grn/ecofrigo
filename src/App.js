@@ -1,0 +1,129 @@
+import React, { useState } from 'react';
+import Frigo from './components/Frigo/Frigo';
+import ScoreBoard from './components/Dashboard/ScoreBoard';
+import { useScore } from './hooks/useScore';
+import './App.css';
+
+function App() {
+  const { score, niveauActuel } = useScore();
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  return (
+    <div className="App">
+      <header className="app-header">
+        <div className="container">
+          <h1 className="app-title">
+            🥬 EcoFrigo
+          </h1>
+          <p className="app-subtitle">
+            Chaque aliment sauvé compte - Ensemble, réduisons le gaspillage alimentaire de 30%
+          </p>
+          <div className="score-display">
+            <span className="score">Score: {score}</span>
+            <span className="level">
+              {niveauActuel.emoji} {niveauActuel.nom}
+            </span>
+          </div>
+          
+          {/* Bouton d'aide */}
+          <button 
+            className="btn btn-secondary tutorial-btn"
+            onClick={() => setShowTutorial(!showTutorial)}
+          >
+            {showTutorial ? '❌ Fermer l\'aide' : '❓ Comment jouer ?'}
+          </button>
+        </div>
+      </header>
+
+      {/* Tutoriel */}
+      {showTutorial && (
+        <div className="tutorial-overlay" onClick={() => setShowTutorial(false)}>
+          <div className="tutorial-content" onClick={(e) => e.stopPropagation()}>
+            <div className="tutorial-header">
+              <h3>🎮 Comment jouer à EcoFrigo ?</h3>
+              <button 
+                className="close-tutorial-btn"
+                onClick={() => setShowTutorial(false)}
+              >
+                ❌
+              </button>
+            </div>
+            <ol>
+              <li>
+                <strong>➕ Ajoutez des aliments :</strong> Cliquez sur les aliments disponibles pour les ajouter à votre frigo
+              </li>
+              <li>
+                <strong>👍 Consommez à temps :</strong> Utilisez les aliments avant qu'ils expirent pour gagner des points
+              </li>
+              <li>
+                <strong>⚠️ Attention aux dates :</strong> Les aliments changent de couleur selon leur fraîcheur
+              </li>
+              <li>
+                <strong>🗑️ Évitez le gaspillage :</strong> Jeter un aliment vous fait perdre des points
+              </li>
+              <li>
+                <strong>🏆 Progressez :</strong> Montez de niveau et débloquez des badges !
+              </li>
+            </ol>
+            
+            <div className="tutorial-legend">
+              <h4>Légende des couleurs :</h4>
+              <div className="legend-items">
+                <div className="legend-item">
+                  <div className="legend-color frais"></div>
+                  <span>✨ Frais (plus de 2 jours)</span>
+                </div>
+                <div className="legend-item">
+                  <div className="legend-color attention"></div>
+                  <span>⚠️ Attention (1-2 jours restants)</span>
+                </div>
+                <div className="legend-item">
+                  <div className="legend-color expire"></div>
+                  <span>❌ Expiré (0 jour ou moins)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <main className="app-main">
+        <div className="container">
+          <div className="game-area">
+            {/* Le frigo virtuel fonctionnel */}
+            <section className="frigo-section">
+              <Frigo />
+            </section>
+
+            {/* Section future pour les recettes (placeholder pour l'instant) */}
+            <section className="recettes-section">
+              <h2>👨‍🍳 Suggestions Anti-Gaspillage</h2>
+              <div className="recettes-placeholder">
+                <p>🔄 Système de recettes en cours de développement...</p>
+                <p className="sous-texte">
+                  Bientôt, nous vous suggérerons des recettes basées sur vos aliments qui périment !
+                </p>
+              </div>
+            </section>
+          </div>
+
+          {/* Dashboard des statistiques fonctionnel */}
+          <aside className="dashboard-section">
+            <ScoreBoard />
+          </aside>
+        </div>
+      </main>
+
+      <footer className="app-footer">
+        <div className="container">
+          <p>💚 EcoFrigo - Hackathon IA For Good</p>
+          <p className="footer-stats">
+            🌍 Ensemble, luttons contre le gaspillage alimentaire !
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default App;

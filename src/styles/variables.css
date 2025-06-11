@@ -1,0 +1,46 @@
+/* Variables CSS - EcoFrigo */
+/* Palette écologique selon la direction artistique */
+
+:root {
+  /* Couleurs principales */
+  --primary-green: #4CAF50;
+  --primary-green-light: #81C784;
+  --primary-green-dark: #388E3C;
+  
+  /* Couleurs d'alerte */
+  --alert-red: #F44336;
+  --alert-red-light: #FF8A80;
+  --warning-orange: #FF9800;
+  --warning-orange-light: #FFB74D;
+  
+  /* Couleurs neutres */
+  --background-white: #FAFAFA;
+  --text-dark: #424242;
+  --text-light: #757575;
+  --border-light: #E0E0E0;
+  
+  /* Couleurs de gamification */
+  --success-green: #4CAF50;
+  --progress-blue: #2196F3;
+  --bonus-gold: #FFC107;
+  
+  /* Tailles */
+  --border-radius: 8px;
+  --border-radius-large: 16px;
+  --shadow-light: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-medium: 0 4px 8px rgba(0,0,0,0.15);
+  --shadow-strong: 0 8px 16px rgba(0,0,0,0.2);
+  
+  /* Animations */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Typographie */
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-small: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-large: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-xxl: 2rem;
+} 

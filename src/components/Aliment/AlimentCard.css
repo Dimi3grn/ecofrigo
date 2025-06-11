@@ -1,0 +1,258 @@
+/* Styles pour AlimentCard */
+
+.aliment-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border: 3px solid var(--border-light);
+  border-radius: var(--border-radius-large);
+  padding: 1rem;
+  margin: 0.5rem;
+  box-shadow: var(--shadow-light);
+  transition: all var(--transition-medium);
+  cursor: pointer;
+  overflow: hidden;
+  min-width: 140px;
+  min-height: 180px;
+}
+
+.aliment-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* États de fraîcheur */
+.aliment-card.frais {
+  border-color: var(--success-green);
+  background: linear-gradient(135deg, white 0%, rgba(76, 175, 80, 0.05) 100%);
+}
+
+.aliment-card.attention {
+  border-color: var(--warning-orange);
+  background: linear-gradient(135deg, white 0%, rgba(255, 152, 0, 0.05) 100%);
+  animation: attention-pulse 2s infinite;
+}
+
+.aliment-card.expire {
+  border-color: var(--alert-red);
+  background: linear-gradient(135deg, white 0%, rgba(244, 67, 54, 0.05) 100%);
+  opacity: 0.8;
+}
+
+/* Emoji de l'aliment */
+.aliment-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  transition: transform var(--transition-fast);
+}
+
+.aliment-card:hover .aliment-emoji {
+  transform: scale(1.1);
+}
+
+/* Informations de l'aliment */
+.aliment-info {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px; /* Espace pour la barre de progression */
+}
+
+.aliment-nom {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.25rem;
+}
+
+.aliment-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+  font-size: var(--font-size-small);
+  font-weight: 500;
+}
+
+.aliment-type {
+  font-size: var(--font-size-small);
+  color: var(--text-light);
+  text-transform: capitalize;
+  font-style: italic;
+}
+
+/* Actions */
+.aliment-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+}
+
+.aliment-card:hover .aliment-actions {
+  opacity: 1;
+}
+
+.btn-consommer, .btn-jeter {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+}
+
+.btn-consommer:hover {
+  background: var(--success-green);
+  transform: scale(1.1);
+}
+
+.btn-jeter:hover {
+  background: var(--alert-red);
+  transform: scale(1.1);
+}
+
+/* Indicateur de fraîcheur */
+.freshness-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+}
+
+/* Barre de progression du jour */
+.day-progress-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  transition: width 0.1s linear;
+  opacity: 0.8;
+}
+
+.day-progress-text {
+  position: relative;
+  z-index: 1;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Animation de pulsation pour les aliments en alerte */
+.expiring-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--border-radius-large);
+  background: var(--warning-orange);
+  opacity: 0.1;
+  animation: pulse-warning 1.5s infinite;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes attention-pulse {
+  0%, 100% {
+    box-shadow: var(--shadow-light);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  }
+}
+
+@keyframes pulse-warning {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* États spéciaux */
+.aliment-card.expire .aliment-emoji {
+  filter: grayscale(50%);
+}
+
+.aliment-card.expire .btn-consommer {
+  display: none;
+}
+
+/* Animation d'entrée */
+.aliment-card {
+  animation: card-enter 0.4s ease-out;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .aliment-card {
+    min-width: 120px;
+    min-height: 140px;
+    padding: 0.75rem;
+  }
+  
+  .aliment-emoji {
+    font-size: 2rem;
+  }
+  
+  .aliment-nom {
+    font-size: var(--font-size-small);
+  }
+  
+  .aliment-actions {
+    opacity: 1; /* Toujours visible sur mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .aliment-card {
+    min-width: 100px;
+    min-height: 120px;
+    padding: 0.5rem;
+  }
+  
+  .aliment-emoji {
+    font-size: 1.5rem;
+  }
+  
+  .btn-consommer, .btn-jeter {
+    font-size: 1rem;
+  }
+} 

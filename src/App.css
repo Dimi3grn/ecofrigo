@@ -1,0 +1,307 @@
+/* Styles principaux de l'application EcoFrigo */
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+  color: white;
+  padding: 2rem 0;
+  box-shadow: var(--shadow-medium);
+}
+
+.app-title {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  animation: slideIn 0.8s ease-out;
+}
+
+.app-subtitle {
+  font-size: var(--font-size-large);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+  font-weight: 300;
+  animation: slideIn 1s ease-out 0.2s both;
+}
+
+.score-display {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: var(--font-size-base);
+  animation: slideIn 1.2s ease-out 0.4s both;
+}
+
+.score, .level {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Main content */
+.app-main {
+  flex: 1;
+  padding: 2rem 0;
+  background-color: var(--background-white);
+}
+
+.app-main .container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+}
+
+.game-area {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Sections */
+.frigo-section, .recettes-section, .dashboard-section {
+  background: white;
+  border-radius: var(--border-radius-large);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-light);
+  border: 1px solid var(--border-light);
+  transition: box-shadow var(--transition-medium);
+}
+
+.frigo-section:hover, .recettes-section:hover, .dashboard-section:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+.frigo-section h2, .recettes-section h2, .dashboard-section h2 {
+  color: var(--primary-green);
+  font-size: var(--font-size-xl);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Placeholders temporaires */
+.frigo-placeholder, .recettes-placeholder, .dashboard-placeholder {
+  background: var(--background-white);
+  border: 2px dashed var(--border-light);
+  border-radius: var(--border-radius);
+  padding: 3rem;
+  text-align: center;
+  font-size: var(--font-size-large);
+  color: var(--text-light);
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-medium);
+}
+
+.frigo-placeholder:hover, .recettes-placeholder:hover, .dashboard-placeholder:hover {
+  border-color: var(--primary-green-light);
+  color: var(--primary-green);
+  transform: translateY(-2px);
+}
+
+/* Bouton tutoriel */
+.tutorial-btn {
+  margin-top: 1rem;
+  font-size: var(--font-size-small);
+  padding: 0.5rem 1rem;
+}
+
+/* Tutoriel overlay */
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.tutorial-content {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius-large);
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin: 1rem;
+  box-shadow: var(--shadow-strong);
+}
+
+.tutorial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.tutorial-content h3 {
+  color: var(--primary-green);
+  margin: 0;
+}
+
+.close-tutorial-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: var(--border-radius);
+  transition: background var(--transition-fast);
+}
+
+.close-tutorial-btn:hover {
+  background: var(--border-light);
+}
+
+.tutorial-content ol {
+  list-style: none;
+  counter-reset: tutorial-counter;
+  margin-bottom: 2rem;
+}
+
+.tutorial-content li {
+  counter-increment: tutorial-counter;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.tutorial-content li::before {
+  content: counter(tutorial-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--primary-green);
+  color: white;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-small);
+  font-weight: bold;
+}
+
+.tutorial-legend h4 {
+  color: var(--primary-green);
+  margin-bottom: 1rem;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid;
+}
+
+.legend-color.frais {
+  background: var(--success-green);
+  border-color: var(--success-green);
+}
+
+.legend-color.attention {
+  background: var(--warning-orange);
+  border-color: var(--warning-orange);
+}
+
+.legend-color.expire {
+  background: var(--alert-red);
+  border-color: var(--alert-red);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Footer */
+.app-footer {
+  background-color: var(--text-dark);
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: var(--font-size-small);
+}
+
+.footer-stats {
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-main .container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .app-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .app-subtitle {
+    font-size: var(--font-size-base);
+  }
+  
+  .score-display {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .app-header {
+    padding: 1.5rem 0;
+  }
+  
+  .frigo-placeholder, .recettes-placeholder, .dashboard-placeholder {
+    padding: 2rem;
+    min-height: 150px;
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (max-width: 480px) {
+  .app-main {
+    padding: 1rem 0;
+  }
+  
+  .frigo-section, .recettes-section, .dashboard-section {
+    padding: 1rem;
+  }
+  
+  .frigo-placeholder, .recettes-placeholder, .dashboard-placeholder {
+    padding: 1.5rem;
+    min-height: 120px;
+  }
+}
