@@ -5,11 +5,13 @@ import { getRandomAliments } from '../../data/aliments';
 import { useScoreContext } from '../../contexts/ScoreContext';
 import './Frigo.css';
 
-const Frigo = ({ onScoreChange }) => {
-  const [alimentsDansFrigo, setAlimentsDansFrigo] = useState([]);
+const Frigo = ({ onScoreChange, onAlimentsChange, alimentsExterieurs }) => {
   const [alimentsDisponibles, setAlimentsDisponibles] = useState([]);
   const [pointsFlottants, setPointsFlottants] = useState([]);
   const { actions } = useScoreContext();
+
+  // Utiliser les aliments du parent au lieu d'un état local
+  const alimentsDansFrigo = alimentsExterieurs || [];
 
   // Initialisation des aliments disponibles
   useEffect(() => {
@@ -33,30 +35,7 @@ const Frigo = ({ onScoreChange }) => {
     }, 3000);
   };
 
-  // Système de notification simple
-  const showNotification = (message, type) => {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: ${type === 'success' ? 'var(--success-green)' : 'var(--alert-red)'};
-      color: white;
-      padding: 1rem;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-medium);
-      z-index: 1000;
-      animation: slideIn 0.3s ease-out;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-      notification.remove();
-    }, 3000);
-  };
+  // Fonction showNotification supprimée - on utilise seulement les points flottants
 
   // Fonction pour vérifier et retirer automatiquement les aliments expirés
   const checkExpiredAliments = () => {
@@ -78,15 +57,16 @@ const Frigo = ({ onScoreChange }) => {
     });
 
     if (alimentsExpires.length > 0) {
-      setAlimentsDansFrigo(alimentsRestants);
+      // Notifier le parent pour retirer les aliments expirés
+      if (onAlimentsChange) {
+        onAlimentsChange(alimentsRestants);
+      }
       
       // Faire perdre des points pour chaque aliment expiré
       alimentsExpires.forEach(aliment => {
-        console.log('🔴 Avant alimentGaspille - Actions:', actions);
         const pointsPerdus = actions.alimentGaspille();
-        console.log('🔴 Points perdus:', pointsPerdus);
+        // Afficher les points flottants (seule notification visuelle)
         showPointsFlottants(pointsPerdus, aliment.nom);
-        showNotification(`${aliment.nom} a expiré ! ${pointsPerdus} points perdus 😔`, 'error');
       });
     }
   };
@@ -111,7 +91,10 @@ const Frigo = ({ onScoreChange }) => {
       dateAjout: new Date().toISOString()
     };
 
-    setAlimentsDansFrigo(prev => [...prev, nouvelAliment]);
+    // Notifier le parent pour ajouter l'aliment
+    if (onAlimentsChange) {
+      onAlimentsChange([...alimentsDansFrigo, nouvelAliment]);
+    }
     
     // Retirer seulement l'aliment des disponibles (pas de respawn automatique)
     setAlimentsDisponibles(prev => prev.filter(a => a.id !== aliment.id));
@@ -119,17 +102,15 @@ const Frigo = ({ onScoreChange }) => {
 
   // Consommer un aliment
   const consommerAliment = (aliment) => {
-    setAlimentsDansFrigo(prev => prev.filter(a => a.id !== aliment.id));
+    // Notifier le parent pour retirer l'aliment
+    if (onAlimentsChange) {
+      onAlimentsChange(alimentsDansFrigo.filter(a => a.id !== aliment.id));
+    }
     
-    console.log('🔵 Avant alimentConsomme - Actions:', actions);
     const pointsGagnes = actions.alimentConsomme();
-    console.log('🔵 Points gagnés:', pointsGagnes);
     
-    // Afficher les points flottants
+    // Afficher les points flottants (seule notification visuelle)
     showPointsFlottants(pointsGagnes, aliment.nom);
-    
-    // Notification de points gagnés
-    showNotification(`+${pointsGagnes} points ! ${aliment.nom} consommé ! 👍`, 'success');
     
     if (onScoreChange) {
       onScoreChange(pointsGagnes);
@@ -138,15 +119,15 @@ const Frigo = ({ onScoreChange }) => {
 
   // Jeter un aliment
   const jeterAliment = (aliment) => {
-    setAlimentsDansFrigo(prev => prev.filter(a => a.id !== aliment.id));
+    // Notifier le parent pour retirer l'aliment
+    if (onAlimentsChange) {
+      onAlimentsChange(alimentsDansFrigo.filter(a => a.id !== aliment.id));
+    }
     
     const pointsPerdus = actions.alimentGaspille();
     
-    // Afficher les points flottants
+    // Afficher les points flottants (seule notification visuelle)
     showPointsFlottants(pointsPerdus, aliment.nom);
-    
-    // Notification de gaspillage
-    showNotification(`${pointsPerdus} points... ${aliment.nom} gaspillé ! 😔`, 'error');
     
     if (onScoreChange) {
       onScoreChange(pointsPerdus);
@@ -161,7 +142,11 @@ const Frigo = ({ onScoreChange }) => {
     if (nouvelIndex >= 0 && nouvelIndex < nouveauxAliments.length) {
       [nouveauxAliments[index], nouveauxAliments[nouvelIndex]] = 
       [nouveauxAliments[nouvelIndex], nouveauxAliments[index]];
-      setAlimentsDansFrigo(nouveauxAliments);
+      
+      // Notifier le parent
+      if (onAlimentsChange) {
+        onAlimentsChange(nouveauxAliments);
+      }
     }
   };
 

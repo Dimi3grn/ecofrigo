@@ -1,0 +1,218 @@
+.recette-card {
+  background: white;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-light);
+  padding: 1.5rem;
+  border: 2px solid transparent;
+  transition: all var(--transition-medium);
+  margin-bottom: 1rem;
+}
+
+.recette-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.recette-card.disponible {
+  border-color: var(--success-green);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.02) 0%, white 30%);
+}
+
+.recette-card.indisponible {
+  border-color: var(--text-light);
+  background: rgba(0, 0, 0, 0.02);
+  opacity: 0.7;
+}
+
+/* Header de la recette */
+.recette-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.recette-emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.recette-info {
+  flex: 1;
+}
+
+.recette-nom {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-dark);
+  font-size: var(--font-size-large);
+  font-weight: 600;
+}
+
+.recette-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.recette-categorie {
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: var(--font-size-small);
+}
+
+.recette-temps {
+  color: var(--text-light);
+  font-size: var(--font-size-small);
+}
+
+.recette-points {
+  text-align: center;
+  background: linear-gradient(135deg, var(--warning-orange) 0%, #FF8F00 100%);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+}
+
+.recette-points .points-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.recette-points .points-label {
+  font-size: var(--font-size-small);
+  opacity: 0.9;
+}
+
+/* Description */
+.recette-description {
+  color: var(--text-light);
+  font-style: italic;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+/* Ingrédients */
+.recette-ingredients h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-dark);
+  font-size: var(--font-size-medium);
+}
+
+.ingredients-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ingredient {
+  background: var(--bg-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: var(--font-size-small);
+  border: 1px solid;
+  transition: all var(--transition-fast);
+}
+
+.ingredient.disponible {
+  background: rgba(76, 175, 80, 0.1);
+  border-color: var(--success-green);
+  color: var(--success-green);
+  font-weight: 600;
+}
+
+.ingredient.manquant {
+  background: rgba(244, 67, 54, 0.1);
+  border-color: var(--alert-red);
+  color: var(--alert-red);
+}
+
+/* Footer */
+.recette-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.difficulte-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-cuisiner {
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-medium);
+  box-shadow: var(--shadow-light);
+  font-size: var(--font-size-medium);
+}
+
+.btn-cuisiner:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+  background: linear-gradient(135deg, var(--primary-green-light) 0%, var(--primary-green) 100%);
+}
+
+.btn-cuisiner:active {
+  transform: translateY(0);
+}
+
+.ingredients-manquants {
+  color: var(--text-light);
+  font-style: italic;
+  font-size: var(--font-size-small);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .recette-card {
+    padding: 1rem;
+  }
+  
+  .recette-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .recette-emoji {
+    font-size: 2.5rem;
+  }
+  
+  .recette-footer {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .ingredients-list {
+    justify-content: center;
+  }
+}
+
+/* Animation pour les recettes disponibles */
+.recette-card.disponible .btn-cuisiner {
+  animation: pulse-cooking 2s infinite;
+}
+
+@keyframes pulse-cooking {
+  0%, 100% {
+    box-shadow: var(--shadow-light);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+  }
+} 

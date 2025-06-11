@@ -1,12 +1,33 @@
 import React, { useState } from 'react';
 import Frigo from './components/Frigo/Frigo';
 import ScoreBoard from './components/Dashboard/ScoreBoard';
+import Recettes from './components/Recettes/Recettes';
 import { ScoreProvider, useScoreContext } from './contexts/ScoreContext';
 import './App.css';
 
 function AppContent() {
   const { score, niveauActuel } = useScoreContext();
   const [showTutorial, setShowTutorial] = useState(false);
+  const [alimentsDansFrigo, setAlimentsDansFrigo] = useState([]);
+
+  // Fonction pour recevoir les aliments du frigo (depuis le composant Frigo)
+  const recevoirAlimentsDuFrigo = (aliments) => {
+    setAlimentsDansFrigo(aliments);
+  };
+
+  // Fonction pour utiliser des aliments dans une recette
+  const utiliserAlimentsDansRecette = (alimentsUtilises, recette, pointsBonus) => {
+    // Retirer les aliments utilisés du frigo
+    setAlimentsDansFrigo(prev => {
+      const idsARetirer = alimentsUtilises.map(a => a.id);
+      const nouveauxAliments = prev.filter(aliment => !idsARetirer.includes(aliment.id));
+      console.log('🔄 Aliments retirés:', alimentsUtilises.map(a => a.nom));
+      console.log('🔄 Aliments restants:', nouveauxAliments.length);
+      return nouveauxAliments;
+    });
+
+    console.log(`✨ Recette "${recette.nom}" réalisée ! +${pointsBonus} points bonus`);
+  };
 
   return (
     <div className="App">
@@ -92,18 +113,18 @@ function AppContent() {
           <div className="game-area">
             {/* Le frigo virtuel fonctionnel */}
             <section className="frigo-section">
-              <Frigo />
+              <Frigo 
+                onAlimentsChange={recevoirAlimentsDuFrigo} 
+                alimentsExterieurs={alimentsDansFrigo}
+              />
             </section>
 
-            {/* Section future pour les recettes (placeholder pour l'instant) */}
+            {/* Section recettes fonctionnelle */}
             <section className="recettes-section">
-              <h2>👨‍🍳 Suggestions Anti-Gaspillage</h2>
-              <div className="recettes-placeholder">
-                <p>🔄 Système de recettes en cours de développement...</p>
-                <p className="sous-texte">
-                  Bientôt, nous vous suggérerons des recettes basées sur vos aliments qui périment !
-                </p>
-              </div>
+              <Recettes 
+                alimentsDansFrigo={alimentsDansFrigo}
+                onUtiliserAliments={utiliserAlimentsDansRecette}
+              />
             </section>
           </div>
 

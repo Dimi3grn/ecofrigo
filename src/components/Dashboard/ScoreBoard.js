@@ -14,7 +14,7 @@ const ScoreBoard = () => {
     actions
   } = useScoreContext();
 
-  console.log('📊 ScoreBoard - Score actuel:', score, 'Statistiques:', statistiques);
+
 
   const badges = useBadges(statistiques);
 
@@ -24,44 +24,7 @@ const ScoreBoard = () => {
         <h2>📊 Votre Performance</h2>
       </div>
 
-      {/* Debug Section - TEMPORARY */}
-      <div className="debug-section" style={{
-        background: '#f0f0f0', 
-        padding: '10px', 
-        margin: '10px 0', 
-        borderRadius: '8px',
-        fontSize: '0.9em'
-      }}>
-        <h4>🔧 Debug Points (temporaire)</h4>
-        <p>Score actuel: <strong>{score}</strong></p>
-        <p>Aliments consommés: <strong>{statistiques.alimentsConsommes}</strong></p>
-        <p>Aliments gaspillés: <strong>{statistiques.alimentsGaspilles}</strong></p>
-        <button 
-          onClick={() => actions.alimentConsomme()}
-          style={{
-            background: '#4CAF50',
-            color: 'white',
-            border: 'none',
-            padding: '5px 10px',
-            borderRadius: '4px',
-            marginRight: '5px'
-          }}
-        >
-          Test +10 points
-        </button>
-        <button 
-          onClick={() => actions.alimentGaspille()}
-          style={{
-            background: '#f44336',
-            color: 'white',
-            border: 'none',
-            padding: '5px 10px',
-            borderRadius: '4px'
-          }}
-        >
-          Test -25 points
-        </button>
-      </div>
+
 
       {/* Score et niveau */}
       <div className="score-section">
