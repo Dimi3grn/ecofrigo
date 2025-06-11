@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Frigo from './components/Frigo/Frigo';
 import ScoreBoard from './components/Dashboard/ScoreBoard';
-import { useScore } from './hooks/useScore';
+import { ScoreProvider, useScoreContext } from './contexts/ScoreContext';
 import './App.css';
 
-function App() {
-  const { score, niveauActuel } = useScore();
+function AppContent() {
+  const { score, niveauActuel } = useScoreContext();
   const [showTutorial, setShowTutorial] = useState(false);
 
   return (
@@ -123,6 +123,14 @@ function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <ScoreProvider>
+      <AppContent />
+    </ScoreProvider>
   );
 }
 

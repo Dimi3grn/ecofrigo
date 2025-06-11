@@ -2,30 +2,61 @@ import React, { useState, useEffect } from 'react';
 import AlimentCard from '../Aliment/AlimentCard';
 import PointsDisplay from '../PointsDisplay/PointsDisplay';
 import { getRandomAliments } from '../../data/aliments';
-import { useScore } from '../../hooks/useScore';
-import { STATUTS_FRAICHEUR } from '../../data/aliments';
-import { useTimer } from '../../hooks/useTimer';
+import { useScoreContext } from '../../contexts/ScoreContext';
 import './Frigo.css';
 
 const Frigo = ({ onScoreChange }) => {
   const [alimentsDansFrigo, setAlimentsDansFrigo] = useState([]);
   const [alimentsDisponibles, setAlimentsDisponibles] = useState([]);
   const [pointsFlottants, setPointsFlottants] = useState([]);
-  const { actions } = useScore();
+  const { actions } = useScoreContext();
 
   // Initialisation des aliments disponibles
   useEffect(() => {
     setAlimentsDisponibles(getRandomAliments(8));
   }, []);
 
-  // Vérification périodique des aliments expirés
-  useEffect(() => {
-    const interval = setInterval(() => {
-      checkExpiredAliments();
-    }, 1000); // Vérifie toutes les 1 seconde pour plus de réactivité
+  // Afficher les points flottants
+  const showPointsFlottants = (points, alimentNom) => {
+    const nouvelAffichage = {
+      id: Date.now() + Math.random(),
+      points,
+      alimentNom,
+      timestamp: Date.now()
+    };
 
-    return () => clearInterval(interval);
-  }, [alimentsDansFrigo]);
+    setPointsFlottants(prev => [...prev, nouvelAffichage]);
+
+    // Retirer l'affichage après 3 secondes
+    setTimeout(() => {
+      setPointsFlottants(prev => prev.filter(p => p.id !== nouvelAffichage.id));
+    }, 3000);
+  };
+
+  // Système de notification simple
+  const showNotification = (message, type) => {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: ${type === 'success' ? 'var(--success-green)' : 'var(--alert-red)'};
+      color: white;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-medium);
+      z-index: 1000;
+      animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  };
 
   // Fonction pour vérifier et retirer automatiquement les aliments expirés
   const checkExpiredAliments = () => {
@@ -51,12 +82,26 @@ const Frigo = ({ onScoreChange }) => {
       
       // Faire perdre des points pour chaque aliment expiré
       alimentsExpires.forEach(aliment => {
+        console.log('🔴 Avant alimentGaspille - Actions:', actions);
         const pointsPerdus = actions.alimentGaspille();
+        console.log('🔴 Points perdus:', pointsPerdus);
         showPointsFlottants(pointsPerdus, aliment.nom);
         showNotification(`${aliment.nom} a expiré ! ${pointsPerdus} points perdus 😔`, 'error');
       });
     }
   };
+
+  // Vérification périodique des aliments expirés
+  useEffect(() => {
+    if (alimentsDansFrigo.length === 0) return;
+    
+    const interval = setInterval(() => {
+      checkExpiredAliments();
+    }, 1000); // Vérifie toutes les 1 seconde pour plus de réactivité
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [alimentsDansFrigo]);
 
   // Ajouter un aliment au frigo
   const ajouterAuFrigo = (aliment) => {
@@ -76,7 +121,9 @@ const Frigo = ({ onScoreChange }) => {
   const consommerAliment = (aliment) => {
     setAlimentsDansFrigo(prev => prev.filter(a => a.id !== aliment.id));
     
+    console.log('🔵 Avant alimentConsomme - Actions:', actions);
     const pointsGagnes = actions.alimentConsomme();
+    console.log('🔵 Points gagnés:', pointsGagnes);
     
     // Afficher les points flottants
     showPointsFlottants(pointsGagnes, aliment.nom);
@@ -104,50 +151,6 @@ const Frigo = ({ onScoreChange }) => {
     if (onScoreChange) {
       onScoreChange(pointsPerdus);
     }
-  };
-
-  // Afficher les points flottants
-  const showPointsFlottants = (points, alimentNom) => {
-    const nouvelAffichage = {
-      id: Date.now() + Math.random(),
-      points,
-      alimentNom,
-      timestamp: Date.now()
-    };
-
-    setPointsFlottants(prev => [...prev, nouvelAffichage]);
-
-    // Retirer l'affichage après 3 secondes
-    setTimeout(() => {
-      setPointsFlottants(prev => prev.filter(p => p.id !== nouvelAffichage.id));
-    }, 3000);
-  };
-
-  // Système de notification simple
-  const showNotification = (message, type) => {
-    // Pour le moment, on utilise une méthode simple
-    // En production, on pourrait utiliser un système de toast plus sophistiqué
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: ${type === 'success' ? 'var(--success-green)' : 'var(--alert-red)'};
-      color: white;
-      padding: 1rem;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-medium);
-      z-index: 1000;
-      animation: slideIn 0.3s ease-out;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-      notification.remove();
-    }, 3000);
   };
 
   // Réorganiser les aliments dans le frigo (simulation drag & drop simplifié)

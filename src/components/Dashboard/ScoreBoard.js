@@ -1,5 +1,6 @@
 import React from 'react';
-import { useScore, useBadges } from '../../hooks/useScore';
+import { useBadges } from '../../hooks/useScore';
+import { useScoreContext } from '../../contexts/ScoreContext';
 import './ScoreBoard.css';
 
 const ScoreBoard = () => {
@@ -9,8 +10,11 @@ const ScoreBoard = () => {
     niveauActuel, 
     prochainNiveau, 
     pourcentageProchainNiveau,
-    equivalencesEcologiques 
-  } = useScore();
+    equivalencesEcologiques,
+    actions
+  } = useScoreContext();
+
+  console.log('📊 ScoreBoard - Score actuel:', score, 'Statistiques:', statistiques);
 
   const badges = useBadges(statistiques);
 
@@ -20,11 +24,50 @@ const ScoreBoard = () => {
         <h2>📊 Votre Performance</h2>
       </div>
 
+      {/* Debug Section - TEMPORARY */}
+      <div className="debug-section" style={{
+        background: '#f0f0f0', 
+        padding: '10px', 
+        margin: '10px 0', 
+        borderRadius: '8px',
+        fontSize: '0.9em'
+      }}>
+        <h4>🔧 Debug Points (temporaire)</h4>
+        <p>Score actuel: <strong>{score}</strong></p>
+        <p>Aliments consommés: <strong>{statistiques.alimentsConsommes}</strong></p>
+        <p>Aliments gaspillés: <strong>{statistiques.alimentsGaspilles}</strong></p>
+        <button 
+          onClick={() => actions.alimentConsomme()}
+          style={{
+            background: '#4CAF50',
+            color: 'white',
+            border: 'none',
+            padding: '5px 10px',
+            borderRadius: '4px',
+            marginRight: '5px'
+          }}
+        >
+          Test +10 points
+        </button>
+        <button 
+          onClick={() => actions.alimentGaspille()}
+          style={{
+            background: '#f44336',
+            color: 'white',
+            border: 'none',
+            padding: '5px 10px',
+            borderRadius: '4px'
+          }}
+        >
+          Test -25 points
+        </button>
+      </div>
+
       {/* Score et niveau */}
       <div className="score-section">
         <div className="score-display">
           <div className="score-value">{score}</div>
-          <div className="score-label">Points</div>
+          <div className="score-label">Points Totaux</div>
         </div>
         
         <div className="level-info">
@@ -46,6 +89,36 @@ const ScoreBoard = () => {
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Section Points Collectés */}
+      <div className="points-collected-section">
+        <h3>🎯 Points Collectés</h3>
+        <div className="points-breakdown">
+          <div className="points-item positive">
+            <div className="points-icon">✅</div>
+            <div className="points-detail">
+              <div className="points-number">+{statistiques.alimentsConsommes * 10}</div>
+              <div className="points-label">Aliments consommés</div>
+            </div>
+          </div>
+          
+          <div className="points-item negative">
+            <div className="points-icon">❌</div>
+            <div className="points-detail">
+              <div className="points-number">{statistiques.alimentsGaspilles * -25}</div>
+              <div className="points-label">Aliments gaspillés</div>
+            </div>
+          </div>
+          
+          <div className="points-item total">
+            <div className="points-icon">🏆</div>
+            <div className="points-detail">
+              <div className="points-number">{score}</div>
+              <div className="points-label">Total des points</div>
+            </div>
+          </div>
         </div>
       </div>
 

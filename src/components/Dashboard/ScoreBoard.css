@@ -84,6 +84,89 @@
   opacity: 0.9;
 }
 
+/* Section Points Collectés */
+.points-collected-section h3 {
+  color: var(--primary-green);
+  font-size: var(--font-size-large);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.points-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.points-item {
+  background: white;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow-light);
+  border-left: 4px solid;
+  transition: all var(--transition-medium);
+}
+
+.points-item:hover {
+  transform: translateX(2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.points-item.positive {
+  border-left-color: var(--success-green);
+  background: linear-gradient(90deg, rgba(76, 175, 80, 0.05) 0%, white 20%);
+}
+
+.points-item.negative {
+  border-left-color: var(--alert-red);
+  background: linear-gradient(90deg, rgba(244, 67, 54, 0.05) 0%, white 20%);
+}
+
+.points-item.total {
+  border-left-color: var(--warning-orange);
+  background: linear-gradient(90deg, rgba(255, 152, 0, 0.05) 0%, white 20%);
+  font-weight: 600;
+}
+
+.points-icon {
+  font-size: 1.5rem;
+  min-width: 1.5rem;
+}
+
+.points-detail {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.points-number {
+  font-size: var(--font-size-large);
+  font-weight: 700;
+}
+
+.points-item.positive .points-number {
+  color: var(--success-green);
+}
+
+.points-item.negative .points-number {
+  color: var(--alert-red);
+}
+
+.points-item.total .points-number {
+  color: var(--warning-orange);
+  font-size: var(--font-size-xl);
+}
+
+.points-label {
+  font-size: var(--font-size-small);
+  color: var(--text-light);
+  font-weight: 500;
+}
+
 /* Section Statistiques */
 .stats-section h3 {
   color: var(--primary-green);
