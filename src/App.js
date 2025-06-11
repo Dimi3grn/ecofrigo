@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Frigo from './components/Frigo/Frigo';
 import ScoreBoard from './components/Dashboard/ScoreBoard';
 import Recettes from './components/Recettes/Recettes';
+import InfoPage from './pages/InfoPage';
 import { ScoreProvider, useScoreContext } from './contexts/ScoreContext';
 import './App.css';
 
-function AppContent() {
+function HomePage() {
   const { score, niveauActuel } = useScoreContext();
   const [showTutorial, setShowTutorial] = useState(false);
   const [alimentsDansFrigo, setAlimentsDansFrigo] = useState([]);
@@ -46,13 +48,20 @@ function AppContent() {
             </span>
           </div>
           
-          {/* Bouton d'aide */}
-          <button 
-            className="btn btn-secondary tutorial-btn"
-            onClick={() => setShowTutorial(!showTutorial)}
-          >
-            {showTutorial ? '❌ Fermer l\'aide' : '❓ Comment jouer ?'}
-          </button>
+          <div className="header-buttons">
+            {/* Bouton Se renseigner */}
+            <Link to="/info" className="btn btn-primary info-btn">
+              📚 Se renseigner
+            </Link>
+            
+            {/* Bouton d'aide */}
+            <button 
+              className="btn btn-secondary tutorial-btn"
+              onClick={() => setShowTutorial(!showTutorial)}
+            >
+              {showTutorial ? '❌ Fermer l\'aide' : '❓ Comment jouer ?'}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -143,6 +152,32 @@ function AppContent() {
           </p>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function AppContent() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/info" element={<InfoPageWithHeader />} />
+      </Routes>
+    </Router>
+  );
+}
+
+function InfoPageWithHeader() {
+  return (
+    <div className="App">
+      <header className="app-header info-header-nav">
+        <div className="container">
+          <Link to="/" className="btn btn-secondary back-btn">
+            ← Retour au jeu
+          </Link>
+        </div>
+      </header>
+      <InfoPage />
     </div>
   );
 }

@@ -1,0 +1,357 @@
+.info-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fdf8 0%, #e8f5e8 100%);
+  padding: 20px 0;
+}
+
+.info-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.info-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 40px 20px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+.info-header h1 {
+  font-size: 2.5rem;
+  color: #2d5a2d;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.highlight-stat {
+  font-size: 1.8rem;
+  color: #e74c3c;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  border-radius: 15px;
+  border-left: 5px solid #e74c3c;
+}
+
+.intro-text {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.stat-card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #27ae60;
+  margin-bottom: 10px;
+}
+
+.stat-unit {
+  font-size: 1.1rem;
+  color: #e74c3c;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.info-section {
+  background: white;
+  margin: 40px 0;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+
+.info-section h2 {
+  font-size: 2rem;
+  color: #2d5a2d;
+  margin-bottom: 30px;
+  font-weight: 700;
+  border-bottom: 3px solid #27ae60;
+  padding-bottom: 15px;
+}
+
+.info-section h3 {
+  font-size: 1.4rem;
+  color: #34495e;
+  margin: 25px 0 15px 0;
+  font-weight: 600;
+}
+
+.info-section p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.info-section ul {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.info-section li {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.breakdown, .comparison {
+  background: linear-gradient(135deg, #f8fdf8 0%, #e8f5e8 100%);
+  padding: 25px;
+  border-radius: 15px;
+  margin: 25px 0;
+  border-left: 5px solid #27ae60;
+}
+
+.food-waste-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.food-category {
+  background: linear-gradient(135deg, #fff8dc 0%, #ffeaa7 100%);
+  padding: 25px;
+  border-radius: 15px;
+  border-left: 5px solid #f39c12;
+}
+
+.food-category h3 {
+  margin-top: 0;
+  color: #d68910;
+}
+
+.restaurant-stats {
+  background: linear-gradient(135deg, #f0f8ff 0%, #e3f2fd 100%);
+  padding: 25px;
+  border-radius: 15px;
+  margin: 25px 0;
+  border-left: 5px solid #3498db;
+}
+
+.environmental-impact {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.impact-stat {
+  text-align: center;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  padding: 30px;
+  border-radius: 20px;
+  border: 3px solid #e74c3c;
+}
+
+.impact-number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #e74c3c;
+  margin-bottom: 10px;
+}
+
+.impact-unit {
+  font-size: 1.2rem;
+  color: #c0392b;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.impact-description {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.impact-comparison ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.global-impact {
+  background: linear-gradient(135deg, #f0f8ff 0%, #e3f2fd 100%);
+  padding: 25px;
+  border-radius: 15px;
+  margin: 25px 0;
+  border-left: 5px solid #3498db;
+}
+
+.solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.solution-card {
+  background: linear-gradient(135deg, #f8fdf8 0%, #e8f5e8 100%);
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid #27ae60;
+  transition: transform 0.3s ease;
+}
+
+.solution-card:hover {
+  transform: translateY(-3px);
+}
+
+.solution-card h3 {
+  margin-top: 0;
+  color: #27ae60;
+  font-size: 1.3rem;
+}
+
+.objectives {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.objective-card {
+  padding: 30px;
+  border-radius: 15px;
+  border: 3px solid;
+}
+
+.objective-card.france {
+  background: linear-gradient(135deg, #f0f8ff 0%, #e3f2fd 100%);
+  border-color: #3498db;
+}
+
+.objective-card.global {
+  background: linear-gradient(135deg, #fff8dc 0%, #ffeaa7 100%);
+  border-color: #f39c12;
+}
+
+.objective-card h3 {
+  margin-top: 0;
+}
+
+.objective-card.france h3 {
+  color: #3498db;
+}
+
+.objective-card.global h3 {
+  color: #d68910;
+}
+
+.call-to-action {
+  background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+  border: 3px solid #27ae60;
+  text-align: center;
+}
+
+.call-to-action h2 {
+  color: #27ae60;
+  border-bottom: 3px solid #27ae60;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.action-tips {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.action-tips h3 {
+  color: #27ae60;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.action-tips ul {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.action-tips li {
+  background: linear-gradient(135deg, #f8fdf8 0%, #e8f5e8 100%);
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border-left: 4px solid #27ae60;
+  list-style: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .info-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .highlight-stat {
+    font-size: 1.4rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .environmental-impact {
+    grid-template-columns: 1fr;
+  }
+  
+  .objectives {
+    grid-template-columns: 1fr;
+  }
+  
+  .solutions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .food-waste-breakdown {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-section {
+    padding: 25px;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+  
+  .impact-number {
+    font-size: 2.8rem;
+  }
+} 
